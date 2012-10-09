@@ -24,7 +24,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <scala.version>2.9.1</scala.version>
-        <hadoop.version>0.20.205.0</hadoop.version>
         <slf4j.version>1.6.1</slf4j.version>
     </properties>
 
@@ -66,7 +65,7 @@
         <repository>
             <id>cloudera-repo</id>
             <name>Cloudera Repository</name>
-            <url>http://repository.cloudera.com/artifactory/cloudera-repos/</url>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -144,11 +143,6 @@
                 <version>0.8.4</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.hadoop</groupId>
-                <artifactId>hadoop-core</artifactId>
-                <version>${hadoop.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>asm</groupId>
                 <artifactId>asm-all</artifactId>
                 <version>3.3.1</version>
@@ -216,7 +210,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>1.0-beta-1</version>
+                    <version>1.1.1</version>
                     <executions>
                         <execution>
                             <id>enforce-versions</id>
@@ -264,7 +258,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.5</version>
+                    <version>2.5.1</version>
                     <configuration>
                         <source>1.6</source>
                         <target>1.6</target>
@@ -275,7 +269,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.11</version>
+                    <version>2.12.4</version>
                     <configuration>
                         <!-- Uses scalatest instead -->
                         <skipTests>true</skipTests>
@@ -313,4 +307,207 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>hadoop-0.20.205</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <hadoop.major.version>1</hadoop.major.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>0.20.205.0</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>hadoop-0.20.2</id>
+            <properties>
+                <hadoop.major.version>1</hadoop.major.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>0.20.2</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>hadoop-1.0.1</id>
+            <properties>
+                <hadoop.major.version>1</hadoop.major.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>1.0.1</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+
+        <!-- Cloudera -->
+        <profile>
+            <id>cdh3u0</id>
+            <properties>
+                <hadoop.major.version>1</hadoop.major.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>0.20.2-cdh3u0</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>cdh3u1</id>
+            <properties>
+                <hadoop.major.version>1</hadoop.major.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>0.20.2-cdh3u1</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>cdh3u2</id>
+            <properties>
+                <hadoop.major.version>1</hadoop.major.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>0.20.2-cdh3u2</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>cdh3u3</id>
+            <properties>
+                <hadoop.major.version>1</hadoop.major.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>0.20.2-cdh3u3</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>cdh3u4</id>
+            <properties>
+                <hadoop.major.version>1</hadoop.major.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>0.20.2-cdh3u4</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>cdh3u4a</id>
+            <properties>
+                <hadoop.major.version>1</hadoop.major.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>0.20.2-cdh3u4a</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>cdh4.0.0</id>
+            <properties>
+                <hadoop.major.version>2</hadoop.major.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>2.0.0-mr1-cdh4.0.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-client</artifactId>
+                        <version>2.0.0-mr1-cdh4.0.0</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>cdh4.0.1</id>
+            <properties>
+                <hadoop.major.version>2</hadoop.major.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>2.0.0-mr1-cdh4.0.1</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-client</artifactId>
+                        <version>2.0.0-mr1-cdh4.0.1</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
+            <id>cdh4.1.0</id>
+            <properties>
+                <hadoop.major.version>2</hadoop.major.version>
+            </properties>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-core</artifactId>
+                        <version>2.0.0-mr1-cdh4.1.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.apache.hadoop</groupId>
+                        <artifactId>hadoop-client</artifactId>
+                        <version>2.0.0-mr1-cdh4.1.0</version>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+    </profiles>
 </project>
