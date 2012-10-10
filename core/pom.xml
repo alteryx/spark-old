@@ -92,10 +92,29 @@
                 <groupId>org.scalatest</groupId>
                 <artifactId>scalatest-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>src/hadoop${hadoop.major.version}/scala</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
     <profiles>
+        <!-- Unfortunately Maven doesn't support property chaining so we have to repeat this for every hadoop 2 dist -->
         <profile>
             <id>cdh4.0.0</id>
             <dependencies>
@@ -116,6 +135,15 @@
         </profile>
         <profile>
             <id>cdh4.1.0</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.hadoop</groupId>
+                    <artifactId>hadoop-client</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>hadoop-2-user-specified</id>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.hadoop</groupId>
