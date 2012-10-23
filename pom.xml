@@ -149,29 +149,14 @@
         <version>11.0.1</version>
       </dependency>
       <dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>1.2.16</version>
-      </dependency>
-      <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <version>${slf4j.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
         <version>${slf4j.version}</version>
       </dependency>
       <dependency>
         <groupId>com.ning</groupId>
         <artifactId>compress-lzf</artifactId>
         <version>0.8.4</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.hadoop</groupId>
-        <artifactId>hadoop-core</artifactId>
-        <version>${hadoop.version}</version>
       </dependency>
       <dependency>
         <groupId>asm</groupId>
@@ -267,6 +252,18 @@
         <groupId>com.novocode</groupId>
         <artifactId>junit-interface</artifactId>
         <version>0.8</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>${slf4j.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.16</version>
         <scope>test</scope>
       </dependency>
     </dependencies>
@@ -378,14 +375,6 @@
             </execution>
           </executions>
         </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>2.4</version>
-          <configuration>
-            <classifier>${hadoop.version}</classifier>
-          </configuration>
-        </plugin>
       </plugins>
     </pluginManagement>
 
@@ -403,152 +392,67 @@
 
   <profiles>
     <profile>
-      <id>apache-0.20.205</id>
+      <id>hadoop1</id>
       <properties>
-        <hadoop.version>0.20.205.0</hadoop.version>
         <hadoop.major.version>1</hadoop.major.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>apache-0.20.2</id>
-      <properties>
-        <hadoop.version>0.20.2</hadoop.version>
-        <hadoop.major.version>1</hadoop.major.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>apache-1.0.1</id>
-      <properties>
-        <hadoop.version>1.0.1</hadoop.version>
-        <hadoop.major.version>1</hadoop.major.version>
-      </properties>
-    </profile>
-
-    <!-- Cloudera -->
-    <profile>
-      <id>cdh3u0</id>
-      <properties>
-        <hadoop.version>0.20.2-cdh3u0</hadoop.version>
-        <hadoop.major.version>1</hadoop.major.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>cdh3u1</id>
-      <properties>
-        <hadoop.version>0.20.2-cdh3u1</hadoop.version>
-        <hadoop.major.version>1</hadoop.major.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>cdh3u2</id>
-      <properties>
-        <hadoop.version>0.20.2-cdh3u2</hadoop.version>
-        <hadoop.major.version>1</hadoop.major.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>cdh3u3</id>
-      <properties>
-        <hadoop.version>0.20.2-cdh3u3</hadoop.version>
-        <hadoop.major.version>1</hadoop.major.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>cdh3u4</id>
-      <properties>
-        <hadoop.version>0.20.2-cdh3u4</hadoop.version>
-        <hadoop.major.version>1</hadoop.major.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>cdh3u4a</id>
-      <properties>
-        <hadoop.version>0.20.2-cdh3u4a</hadoop.version>
-        <hadoop.major.version>1</hadoop.major.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>cdh4.0.0</id>
-      <properties>
-        <hadoop.version>2.0.0-mr1-cdh4.0.0</hadoop.version>
-        <hadoop.major.version>2</hadoop.major.version>
       </properties>
       <dependencyManagement>
         <dependencies>
           <dependency>
             <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-client</artifactId>
-            <version>${hadoop.version}</version>
+            <artifactId>hadoop-core</artifactId>
+            <version>0.20.205.0</version>
+            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
-    </profile>
-    <profile>
-      <id>cdh4.0.1</id>
-      <properties>
-        <hadoop.version>2.0.0-mr1-cdh4.0.1</hadoop.version>
-        <hadoop.major.version>2</hadoop.major.version>
-      </properties>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-client</artifactId>
-            <version>${hadoop.version}</version>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-    </profile>
-    <profile>
-      <id>cdh4.1.0</id>
-      <properties>
-        <hadoop.version>2.0.0-mr1-cdh4.1.0</hadoop.version>
-        <hadoop.major.version>2</hadoop.major.version>
-      </properties>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-client</artifactId>
-            <version>${hadoop.version}</version>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
-    </profile>
-    <profile>
-      <id>cdh4.1.1</id>
-      <properties>
-        <hadoop.version>2.0.0-mr1-cdh4.1.1</hadoop.version>
-        <hadoop.major.version>2</hadoop.major.version>
-      </properties>
-      <dependencyManagement>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-client</artifactId>
-            <version>${hadoop.version}</version>
-          </dependency>
-        </dependencies>
-      </dependencyManagement>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>2.4</version>
+            <configuration>
+              <classifier>hadoop1</classifier>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
 
     <profile>
-      <id>hadoop-2-user-specified</id>
-      <activation>
-        <property>
-          <name>hadoop.major.version</name>
-          <value>2</value>
-        </property>
-      </activation>
+      <id>hadoop2</id>
+      <properties>
+        <hadoop.major.version>2</hadoop.major.version>
+      </properties>
       <dependencyManagement>
         <dependencies>
           <dependency>
             <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-core</artifactId>
+            <version>2.0.0-mr1-cdh4.1.1</version>
+            <scope>provided</scope>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
-            <version>${hadoop.version}</version>
+            <version>2.0.0-mr1-cdh4.1.1</version>
+            <scope>provided</scope>
           </dependency>
         </dependencies>
       </dependencyManagement>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>2.4</version>
+            <configuration>
+              <classifier>hadoop2</classifier>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
 </project>
