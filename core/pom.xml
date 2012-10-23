@@ -116,6 +116,8 @@
     </dependency>
   </dependencies>
   <build>
+    <outputDirectory>target/scala-${scala.version}/classes</outputDirectory>
+    <testOutputDirectory>target/scala-${scala.version}/test-classes</testOutputDirectory>
     <plugins>
       <plugin>
         <groupId>org.scalatest</groupId>
@@ -123,6 +125,7 @@
         <configuration>
           <environmentVariables>
             <SPARK_HOME>${basedir}/..</SPARK_HOME>
+            <SPARK_TESTING>1</SPARK_TESTING>
           </environmentVariables>
         </configuration>
       </plugin>
