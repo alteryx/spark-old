@@ -6,4 +6,3 @@ Architecture: all
 Maintainer: Matei Zaharia <matei.zaharia@gmail.com>
 Description: spark repl
 Distribution: development
-Depends: scala (>= 2.9.2)
