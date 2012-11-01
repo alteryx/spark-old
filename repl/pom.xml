@@ -17,6 +17,11 @@
   <name>Spark Project REPL</name>
   <url>http://spark-project.org/</url>
 
+  <properties>
+    <deb.install.path>/usr/share/spark</deb.install.path>
+    <deb.user>root</deb.user>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
@@ -68,6 +73,9 @@
   <profiles>
     <profile>
       <id>hadoop1</id>
+      <properties>
+        <classifier>hadoop1</classifier>
+      </properties>
       <dependencies>
         <dependency>
           <groupId>org.spark-project</groupId>
@@ -136,6 +144,9 @@
     </profile>
     <profile>
       <id>hadoop2</id>
+      <properties>
+        <classifier>hadoop2</classifier>
+      </properties>
       <dependencies>
         <dependency>
           <groupId>org.spark-project</groupId>
@@ -202,6 +213,67 @@
                       <mainClass>spark.repl.Main</mainClass>
                     </transformer>
                   </transformers>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>deb</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>buildnumber-maven-plugin</artifactId>
+            <version>1.1</version>
+            <executions>
+              <execution>
+                <phase>validate</phase>
+                <goals>
+                  <goal>create</goal>
+                </goals>
+                <configuration>
+                  <shortRevisionLength>8</shortRevisionLength>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.vafer</groupId>
+            <artifactId>jdeb</artifactId>
+            <version>0.11</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>jdeb</goal>
+                </goals>
+                <configuration>
+                  <deb>${project.build.directory}/${project.artifactId}-${classifier}_${project.version}-${buildNumber}.deb</deb>
+                  <dataSet>
+                    <data>
+                      <src>${project.build.directory}/${project.artifactId}-${project.version}-shaded-${classifier}.jar</src>
+                      <type>file</type>
+                      <mapper>
+                        <type>perm</type>
+                        <user>${deb.user}</user>
+                        <group>${deb.user}</group>
+                        <prefix>${deb.install.path}</prefix>
+                      </mapper>
+                    </data>
+                    <data>
+                      <src>${basedir}/src/deb/bin</src>
+                      <type>directory</type>
+                      <mapper>
+                        <type>perm</type>
+                        <user>${deb.user}</user>
+                        <group>${deb.user}</group>
+                        <prefix>${deb.install.path}</prefix>
+                      </mapper>
+                    </data>
+                  </dataSet>
                 </configuration>
               </execution>
             </executions>
