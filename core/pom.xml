@@ -7,10 +7,6 @@
     <version>0.6.1-SNAPSHOT</version>
   </parent>
 
-  <prerequisites>
-    <maven>3.0.0</maven>
-  </prerequisites>
-
   <groupId>org.spark-project</groupId>
   <artifactId>spark-core</artifactId>
   <packaging>jar</packaging>
@@ -115,7 +111,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.7</version>
         <executions>
           <execution>
             <phase>compile</phase>
@@ -173,7 +168,20 @@
                 </goals>
                 <configuration>
                   <sources>
+                    <source>src/main/scala</source>
                     <source>src/hadoop1/scala</source>
+                  </sources>
+                </configuration>
+              </execution>
+              <execution>
+                <id>add-scala-test-sources</id>
+                <phase>generate-test-sources</phase>
+                <goals>
+                  <goal>add-test-source</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>src/test/scala</source>
                   </sources>
                 </configuration>
               </execution>
@@ -182,7 +190,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
-            <version>2.4</version>
             <configuration>
               <classifier>hadoop1</classifier>
             </configuration>
@@ -218,7 +225,20 @@
                 </goals>
                 <configuration>
                   <sources>
+                    <source>src/main/scala</source>
                     <source>src/hadoop2/scala</source>
+                  </sources>
+                </configuration>
+              </execution>
+              <execution>
+                <id>add-scala-test-sources</id>
+                <phase>generate-test-sources</phase>
+                <goals>
+                  <goal>add-test-source</goal>
+                </goals>
+                <configuration>
+                  <sources>
+                    <source>src/test/scala</source>
                   </sources>
                 </configuration>
               </execution>
@@ -227,7 +247,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
-            <version>2.4</version>
             <configuration>
               <classifier>hadoop2</classifier>
             </configuration>

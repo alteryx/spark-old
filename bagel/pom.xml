@@ -7,10 +7,6 @@
     <version>0.6.1-SNAPSHOT</version>
   </parent>
 
-  <prerequisites>
-    <maven>3.0.0</maven>
-  </prerequisites>
-
   <groupId>org.spark-project</groupId>
   <artifactId>spark-bagel</artifactId>
   <packaging>jar</packaging>
@@ -63,7 +59,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
-            <version>2.4</version>
             <configuration>
               <classifier>hadoop1</classifier>
             </configuration>
@@ -94,7 +89,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
-            <version>2.4</version>
             <configuration>
               <classifier>hadoop2</classifier>
             </configuration>

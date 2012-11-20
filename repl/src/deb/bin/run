@@ -33,9 +33,9 @@ export JAVA_OPTS
 # Build up classpath
 CLASSPATH="$SPARK_CLASSPATH"
 CLASSPATH+=":$FWDIR/conf"
-for jar in `find . -name '*jar'`; do
+for jar in `find $FWDIR -name '*jar'`; do
   CLASSPATH+=":$jar"
 done
 export CLASSPATH
 
-exec java -Dscala.usejavacp=true -Djline.shutdownhook=true -cp "$CLASSPATH" $EXTRA_ARGS "$@"
+exec java -Dscala.usejavacp=true -Djline.shutdownhook=true -cp "$CLASSPATH" $JAVA_OPTS $EXTRA_ARGS "$@"
