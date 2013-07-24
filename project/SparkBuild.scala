@@ -40,13 +40,15 @@ object SparkBuild extends Build {
   //val HADOOP_MAJOR_VERSION = "2"
   //val HADOOP_YARN = true
 
-  lazy val root = Project("root", file("."), settings = rootSettings) aggregate(core, repl, examples, bagel, streaming, mllib)
+  lazy val root = Project("root", file("."), settings = rootSettings) aggregate(core, repl, examples, bagel, streaming, mllib, tools)
 
   lazy val core = Project("core", file("core"), settings = coreSettings)
 
   lazy val repl = Project("repl", file("repl"), settings = replSettings) dependsOn (core)
 
   lazy val examples = Project("examples", file("examples"), settings = examplesSettings) dependsOn (core) dependsOn (streaming)
+
+  lazy val tools = Project("tools", file("tools"), settings = examplesSettings) dependsOn (core) dependsOn (streaming)
 
   lazy val bagel = Project("bagel", file("bagel"), settings = bagelSettings) dependsOn (core)
 
@@ -177,7 +179,9 @@ object SparkBuild extends Build {
       "net.liftweb" % "lift-json_2.9.2" % "2.5",
       "org.apache.mesos" % "mesos" % "0.9.0-incubating",
       "io.netty" % "netty-all" % "4.0.0.Beta2",
-      "org.apache.derby" % "derby" % "10.4.2.0" % "test"
+      "org.apache.derby" % "derby" % "10.4.2.0" % "test",
+      "com.codahale.metrics" % "metrics-core" % "3.0.0",
+      "com.codahale.metrics" % "metrics-jvm" % "3.0.0"
     ) ++ (
       if (HADOOP_MAJOR_VERSION == "2") {
         if (HADOOP_YARN) {
@@ -231,6 +235,10 @@ object SparkBuild extends Build {
         exclude("log4j","log4j")
         exclude("org.apache.cassandra.deps", "avro")
     )
+  )
+
+  def toolsSettings = sharedSettings ++ Seq(
+    name := "spark-tools"
   )
 
   def bagelSettings = sharedSettings ++ Seq(name := "spark-bagel")
